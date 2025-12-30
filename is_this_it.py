@@ -7,6 +7,11 @@ from tkinter import ttk, messagebox
 import threading
 import json
 import time
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 # Function to check and install required packages
 def ensure_dependencies():
@@ -140,8 +145,8 @@ class SpotifyToYTMusicApp:
         
         # Config files and default credentials
         self.config_file = "spotify_config.json"
-        self.client_id = "0870c97f368046d89a4dbc032a36d57d"  # Default Spotify ID (create your own for production)
-        self.client_secret = "230e4c96e9b64289b7c5c3f1bdfa8073"  # Default Spotify Secret
+        self.client_id = os.getenv("SPOTIFY_CLIENT_ID")
+        self.client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
         self.redirect_uri = "http://localhost:8888/callback"
         self.spotify_token_info = None
         
@@ -334,16 +339,14 @@ class SpotifyToYTMusicApp:
         instructions.insert(tk.END, "3. Press F12 or right-click on the page and select 'Inspect' to open Developer Tools\n")
         instructions.insert(tk.END, "4. Select the 'Network' tab in Developer Tools\n")
         instructions.insert(tk.END, "5. Refresh the page\n")
-        instructions.insert(tk.END, "6. Type 'next' in the filter field at the top of the Network tab\n")
-        instructions.insert(tk.END, "7. Look for a request with 'next' in the name and click on it\n")
+        instructions.insert(tk.END, "6. Type 'next' or 'browse' in the filter field at the top of the Network tab\n")
+        instructions.insert(tk.END, "7. Click one of the requests under the filtered results \n")
         instructions.insert(tk.END, "8. In the new panel that appears, select the 'Headers' tab\n")
         instructions.insert(tk.END, "9. Scroll down to the 'Request Headers' section\n")
-        instructions.insert(tk.END, "10. Turn on the raw button\n")
+        instructions.insert(tk.END, "10. Click the RAW toggle button to view the headers in raw format.\n")
         instructions.insert(tk.END, "11. Copy the data\n")
         instructions.insert(tk.END, "12. Click the 'Setup YouTube Music' button in the application\n")
         instructions.insert(tk.END, "13. When prompted, paste the copied value\n")
-        instructions.insert(tk.END, "14. You'll be asked to enter a User-Agent as well. You can find this in the same Request Headers section, labeled as 'User-Agent'\n")
-        instructions.insert(tk.END, "15. After entering both values, the authentication file will be created\n\n")
         instructions.insert(tk.END, "Note: The authentication process never sends your YouTube Music cookies to any third-party servers. All authentication data is stored locally on your computer.")
         
         instructions.configure(state=tk.DISABLED)  # Make it read-only

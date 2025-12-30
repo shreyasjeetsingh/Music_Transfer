@@ -1,0 +1,5 @@
+spotify_config.json
+headers_auth.json
+.env
+__pycache__/
+*.pyc
