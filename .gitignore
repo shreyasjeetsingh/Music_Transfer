@@ -1,5 +1,13 @@
+# Secrets and local auth
 spotify_config.json
 headers_auth.json
 .env
+
+# Python cache
 __pycache__/
 *.pyc
+
+# PyInstaller artifacts
+build/
+dist/
+*.spec
